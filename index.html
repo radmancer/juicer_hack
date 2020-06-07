@@ -53,6 +53,8 @@
 
         if(feedMessage.childNodes.length > 4){
             var feedImageContainer = feedMessage.children[4];
+            feedImageContainer.style.backgroundColor = "orange";
+            popTextNodes(feedImageContainer);
             var feedImageLink = feedImageContainer.children[0];
             var img = document.createElement("img");
             img.src = feedImageLink.href;
