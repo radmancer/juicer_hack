@@ -45,8 +45,7 @@
         feedMessageText.style.backgroundColor = "orange";
         hideElement(feedPoster);
         hideElement(feedName);
-        discardElement(feedEmailPreText);
-        //discardElement(feedMessagePreText);
+        feedEmail.removeChild(feedEmailPreText);
     }
     function discardElement(element){
         //The way this works is due to the phenomenon whereby child nodes
