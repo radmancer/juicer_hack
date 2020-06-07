@@ -1,13 +1,18 @@
 <html>
 <head>
     <link href="https://assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <ul class="juicer-feed" data-feed-id="https-www-formstack-com-admin-submission-rss-22980764-share-yxiikoeqwi-limit-100"></ul>
 </body>
 <script>
-    function sleep(sleepFunction, element, range, wait){
+    //Here we are creating a 'garbage bin' object to temporarily 
+    //store elements that are to be discarded
+    var garbageBin = document.createElement('div');
+    garbageBin.style.display = 'none'; //Make sure it is not displayed
+    document.body.appendChild(garbageBin);
+
+    function sleep(auxiliaryFunction, element, range, wait){
         var i = 0.00;
         (function loop () {
             setTimeout(function () {
@@ -16,39 +21,45 @@
                     loop();       // Call the loop again, and pass it the current value of i
                 }
                 else{
-                    sleepFunction(element);
+                    auxiliaryFunction(element);
                 }
             }, wait);
         })();
     }
+    function hideElement(element){
+        //element.style.display = "none";
+        //element.innerHTML = "";
+        element.style.visibility = "hidden";
+    }
     function hideUnwantedElements() {
-        //var feedContainer = document.querySelector('.j-stack').children[1];
-        // var feedColumn = document.querySelector('.j-stack');
-        // var feedCell = feedColumn.children[0];
-        // console.log(feedCell);
-        // feedCell.style.backgroundColor = "red";
         var feed = document.querySelector('.j-stacker');
         var feedColumn = feed.children[0];
         var feedCell = feedColumn.children[0];
-        console.log(feedCell);
-        feedCell.style.backgroundColor = "green";
-        //var children = feedContainer.children;
-        //alert(children.length);
-        //var feedWrapper = feedContainer.firstChild;
-        //feedWrapper.style.backgroundColor = "red";
-        //findMyText("Name: ","");
-        // var feedContainer0 = document.getElementsByClassName("juicer-feed")[0];
-        // console.log(feedContainer0.length);
-        // feedContainer0.remove();
-        // document.body.append(feedContainer0);
-        // var feedContainer = document.getElementsByClassName("juicer-feed")[0];
-        // console.log(feedContainer.length);
+        var feedPoster = feedCell.children[0];
+        var feedText = feedCell.children[1];
+        var feedMessage = feedText.children[0];
+        var feedName = feedMessage.children[1];
+        var feedEmail = feedMessage.children[2];
+        var feedEmailPreText = feedEmail.firstChild;
+        var feedMessageText = feedMessage.children[3];
+        feedMessageText.style.backgroundColor = "orange";
+        hideElement(feedPoster);
+        hideElement(feedName);
+        discardElement(feedEmailPreText);
+        //discardElement(feedMessagePreText);
     }
-    //document.body.appendChild(feedContainer);
-    //sleep(hideUnwantedElements, this, 100, 100);
-    $(document).ready(function(){
+    function discardElement(element){
+        //The way this works is due to the phenomenon whereby child nodes
+        //of an object with it's innerHTML emptied are removed from memory
+
+        //Move the element to the garbage bin element
+        garbageBin.appendChild(element);
+        //Empty the garbage bin
+        garbageBin.innerHTML = "";
+    }
+    window.onload = function(){
         sleep(hideUnwantedElements, this, 1000, 1000);
-    });
+    }
 </script>
 <script src="https://assets.juicer.io/embed.js" type="text/javascript"></script>
 </html>
