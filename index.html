@@ -46,16 +46,18 @@
         var feed = document.querySelector('.j-stacker');
         var feedColumn = feed.children[0];
         var feedCell = feedColumn.children[0];
-        var feedPoster = feedCell.children[0];
-        var feedText = feedCell.children[1];
+        var feedText = feedCell.children[1];  
         var feedMessage = feedText.children[0];
-        var feedName = feedMessage.children[1];
-        var feedEmail = feedMessage.children[2];
-        popTextNodes(feedEmail);
         var feedMessageText = feedMessage.children[3];
-        feedMessageText.style.backgroundColor = "orange";
-        hideElement(feedPoster);
-        hideElement(feedName);
+        feedMessageText.innerHTML = feedMessageText.innerHTML.replace("Message: ", "");
+
+        if(feedMessage.childNodes.length > 4){
+            var feedImageContainer = feedMessage.children[4];
+            var feedImageLink = feedImageContainer.children[0];
+            var img = document.createElement("img");
+            img.src = feedImageLink.href;
+            feedMessage.appendChild(img);
+        }
     }
     function discardElement(element){
         //The way this works is due to the phenomenon whereby child nodes
