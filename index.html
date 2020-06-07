@@ -31,6 +31,17 @@
         //element.innerHTML = "";
         element.style.visibility = "hidden";
     }
+    function popTextNodes(element){
+        var children = [];
+        for(var i=0; i<element.children.length; i++) {
+            children.push(element.children[i]);
+        }
+
+        element.innerHTML = "";
+        children.forEach(function(item) {
+            element.appendChild(item);
+        });
+    }
     function hideUnwantedElements() {
         var feed = document.querySelector('.j-stacker');
         var feedColumn = feed.children[0];
@@ -40,12 +51,11 @@
         var feedMessage = feedText.children[0];
         var feedName = feedMessage.children[1];
         var feedEmail = feedMessage.children[2];
-        var feedEmailPreText = feedEmail.firstChild;
+        popTextNodes(feedEmail);
         var feedMessageText = feedMessage.children[3];
         feedMessageText.style.backgroundColor = "orange";
         hideElement(feedPoster);
         hideElement(feedName);
-        feedEmail.removeChild(feedEmailPreText);
     }
     function discardElement(element){
         //The way this works is due to the phenomenon whereby child nodes
